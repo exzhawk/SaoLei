@@ -1,0 +1,85 @@
+unknown_color = rgb(242, 171, 47)
+side_length = 50px
+particle_count=20
+sqrt(x)
+  return math(x, 'sqrt')
+
+random(a, b)
+  return math(math(0, 'random') * (b - a + 1) + a, 'floor')
+
+body
+  width: 100%
+  height: 100%
+  margin: 100px
+  .block
+    background-color: unknown_color
+    height: side_length* sqrt(3)
+    width: side_length
+    position: relative
+    &:before
+      content: ''
+      background-color: unknown_color
+      border-top: solid (@height / 2) white
+      border-bottom: solid (@height / 2) white
+      border-right: solid (@width / 2) unknown_color
+      position: absolute
+      left: - (@width / 2)
+    &:after
+      content: ''
+      background-color: unknown_color
+      border-top: solid (@height / 2) white
+      border-bottom: solid (@height / 2) white
+      border-left: solid (@width / 2) unknown_color
+      position: absolute
+      right: -(@width / 2)
+
+  #ani
+    position: fixed
+    top: -100px
+    left: -100px
+    height: 0
+    width: 0
+    for index in (1..particle_count)
+      .particle:nth-child({index})
+        position: absolute
+        border-radius: random(1,5) px
+        border: solid @border-radius green
+        //animation: unquote(join('',fall_v,index)) 1s ease-in 1,unquote(join('',fall_h,index)) 1s linear 1
+        animation-fill-mode: forwards
+
+    .particle_test
+      position: absolute
+      border-radius :10px
+      border:solid @border-radius blue
+      animation: fallv_test 1s ease-in 1,
+              fallh_test 1s linear 1
+
+      animation-fill-mode :forwards
+
+
+@keyframes fallv_test
+  from
+    top:0
+  to
+    top:1000px
+
+@keyframes fallh_test
+  from
+    left:0
+  to
+    left:100px
+
+for index in (1..particle_count)
+  @keyframes fall_h{index}
+    from
+      left:0
+    to
+      left:random(-100,100)px
+  @keyframes fall_v{index}
+    from
+      top:0
+    to
+      top:random(1000,2000)px
+
+
+
